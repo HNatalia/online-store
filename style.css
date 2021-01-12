@@ -5,6 +5,10 @@
   font-family: 'EB Garamond', serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 li {
   list-style: none;
 }
@@ -22,23 +26,31 @@ a {
   z-index: 3;
   background-color: #343632ad;
   border-bottom: 2px solid #ffffff;
+  transition: transform .5s;
 }
 
 .advs {
   background-color: #ce5858;
+  height: 30px;
+  overflow: hidden;
 }
 
-.advs ul {
+.advs .advs-list {
   display: flex;
-  justify-content: center;
-  padding: 5px;
+  flex-direction: column;
+  align-items: center;
   color: #383837;
+}
+
+.advs .advs-list li {
+  padding: 2px;
 }
 
 nav {
   width: 80%;
   margin: 0 auto;
   padding: 10px 0;
+  position: relative;
 }
 
 nav ul {
@@ -47,13 +59,14 @@ nav ul {
   align-items: center;
 }
 
-nav ul li a {
+nav ul li, nav ul li a {
   font-size: 19px;
   transition: .5s;
   color: #ffffff;
+  cursor: pointer;
 }
 
-nav ul li a:hover {
+nav ul li:hover, nav ul li a:hover {
   color: #ce5858;
 }
 
@@ -71,20 +84,39 @@ nav ul li a:hover {
   display: none;
 }
 
+.shopping-card {
+  position: absolute;
+  width: 80vw;
+  height: 70vh;
+  background-color: #ffffff;
+  top: 70px;
+  border: 2px solid #ce5858;
+  display: none;
+}
+
+.shopping-card.open {
+  display: block;
+}
+
 .jumbotron {
-  height: 550px;
-  background-image: url(/assets/images/main-pic.jpg);
-  background-repeat: no-repeat;
-  background-position: 0 -18px;
-  background-size: cover;
-  opacity: .9;
-  margin-top: 30px;
-  transition: .5s;
-  animation: bg 2s;
+  height: 75vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.jumbotron img {
+  height: 100%;
+  width: 100%;
+  object-position: 0 -50px;
+  object-fit: cover;
+  animation: bg 4s;
 }
 
 .content-block {
-  width: 85%;
+  position: absolute;
+  top: 0;
+  left: 7.5%;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -94,10 +126,11 @@ nav ul li a:hover {
 }
 
 .content {
-  background-color: #c8bdaa;
+  background-color: #e8dcc7;
   padding: 20px;
-  color: #ffffff;
+  color: #383837;
   margin-top: 40px;
+  position: relative;
 }
 
 .content h1 {
@@ -232,7 +265,7 @@ nav ul li a:hover {
 
 #filters .search input{
   margin-left: 10px;
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 30px;
   outline: none;
   font-size: 15px;
@@ -246,30 +279,37 @@ nav ul li a:hover {
 }
 
 #catalogue .items {
+  display: flex;
+  width: 300%;
+}
+
+#catalogue .page {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
 }
 
 #catalogue .card {
+  max-width: 328px;
+  width: 100%;
   position: relative;
 }
 
 #catalogue img {
-  max-width: 328px;
-  width: 100%;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
 
 #catalogue .plant-info {
   position: absolute;
   width: 100%;
   left: 0;
-  bottom: 5px;
+  bottom: 0;
   padding: 20px;
   color: #383837;
   line-height: 1.7;
-  font-size: 1.2rem;
+  font-size: 20px;
   background-color: #cec4b37d;
   opacity: 0;
   transition: .7s;
@@ -418,29 +458,15 @@ nav ul li a:hover {
   color: #ce5858;
 }
 
-#contacts .map {
-  position: relative;
-  margin: 10px;
-}
-
 #contacts iframe {
   outline: none;
   border: none;
-}
-
-#contacts .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 98.3%;
-  background-color: rgba(200, 189, 170, 0.4);
+  opacity: .4;
   transition: .5s;
 }
 
-#contacts .map:hover .overlay {
-  opacity: 0;
-  z-index: -1;
+#contacts iframe:hover {
+  opacity: 1;
 }
 
 footer {
@@ -465,10 +491,10 @@ footer a {
 
 @keyframes bg {
   from {
-    width: 120%;
+    transform: scale(1.4);
   }
   to {
-    width: 100%;
+    transform: scale(1);
   }
 }
 
@@ -485,6 +511,10 @@ footer a {
 
   #filters .container h3 {
     font-size: 22px;
+  }
+
+  #catalogue .plant-info {
+    font-size: 14px;
   }
 
   #contacts .container form h4 {
@@ -541,6 +571,7 @@ footer a {
     align-items: flex-end;
     justify-content: center;
     transition: .5s;
+    cursor: pointer;
   }
 
   .menu.open .line{
@@ -602,6 +633,10 @@ footer a {
     margin-bottom: 10px;
   }
 
+  #catalogue .page {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   #contacts .container {
     flex-direction: column;
   }
@@ -609,6 +644,7 @@ footer a {
   #contacts iframe {
     width: 300px;
     height: 300px;
+    margin-top: 10px;
   }
 }
 
@@ -708,6 +744,14 @@ footer a {
     right: -8px;
   }
 
+  .jumbotron {
+    height: 100vh;
+  }
+
+  .jumbotron img {
+    object-position: 0 0;
+  }
+
   .content-block {
     width: 80%;
   }
@@ -738,6 +782,10 @@ footer a {
   #filters .container h3 {
     font-size: 22px;
     margin-bottom: 10px;
+  }
+
+  #catalogue .page {
+    grid-template-columns: 1fr;
   }
 
   #contacts .container {
