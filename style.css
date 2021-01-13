@@ -40,6 +40,7 @@ a {
   flex-direction: column;
   align-items: center;
   color: #383837;
+  transition: .7s;
 }
 
 .advs .advs-list li {
@@ -87,11 +88,55 @@ nav ul li:hover, nav ul li a:hover {
 .shopping-card {
   position: absolute;
   width: 80vw;
-  height: 70vh;
   background-color: #ffffff;
   top: 70px;
   border: 2px solid #ce5858;
   display: none;
+  color: #383837;
+  padding: 20px;
+}
+
+.shopping-card .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shopping-card .empty {
+  font-size: 18px;
+  color: #383837;
+  margin-top: 20px;
+}
+
+.shopping-card .buttons {
+  margin-top: 50px;
+}
+
+.shopping-card .order {
+  color: #ffffff;
+  background-color: #ce5858;
+  cursor: pointer;
+  padding: 10px 40px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  margin-right: 20px;
+  display: none;
+}
+
+.shopping-card .back {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.shopping-card .back a {
+  color: #ce5858;
+  font-size: 20px;
+  margin: 0;
+}
+
+.shopping-card .back:hover {
+  text-decoration: underline;
 }
 
 .shopping-card.open {
@@ -116,7 +161,7 @@ nav ul li:hover, nav ul li a:hover {
 .content-block {
   position: absolute;
   top: 0;
-  left: 7.5%;
+  left: 10%;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -140,6 +185,10 @@ nav ul li:hover, nav ul li a:hover {
 .content p {
   font-size: 28px;
   margin-bottom: 60px;
+}
+
+.content-btns {
+  position: relative;
 }
 
 .content button {
@@ -186,6 +235,7 @@ nav ul li:hover, nav ul li a:hover {
 .content button:hover a {
   color: #ffffff;
 }
+
 
 .content .chat i {
   display: none;
@@ -251,6 +301,7 @@ nav ul li:hover, nav ul li a:hover {
   margin-left: -20px;
   line-height: 1.5;
   background-color: #fff;
+  z-index: 1;
 }
 
 #filters .drop-down label {
@@ -286,12 +337,14 @@ nav ul li:hover, nav ul li a:hover {
 #catalogue .page {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   grid-gap: 20px;
 }
 
 #catalogue .card {
   max-width: 328px;
   width: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -633,6 +686,10 @@ footer a {
     margin-bottom: 10px;
   }
 
+  #filters .drop-down {
+    width: 80%;
+  }
+
   #catalogue .page {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -782,6 +839,10 @@ footer a {
   #filters .container h3 {
     font-size: 22px;
     margin-bottom: 10px;
+  }
+
+  #filters .drop-down {
+    width: 100%;
   }
 
   #catalogue .page {

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
     <link rel="stylesheet" href="style.css">
-    <title>Pot Story</title>
+    <title>Plant Story</title>
 </head>
 <body>
     <header>
@@ -16,12 +16,12 @@
             <div class="navigation">
                 <div class="advs">
                     <ul class="advs-list">
-                        <li id="last-clone"><a href="#" target="_blank">Free sheeping of order more than 100$</a></li>
+                        <!-- <li id="last-clone"><a href="#" target="_blank">Free sheeping of order more than 100$</a></li> -->
                         <li><a href="#" target="_blank">Best price</a></li>
                         <li><a href="#" target="_blank">Buy 2 get 3</a></li>
                         <li><a href="#" target="_blank">Discounts up till 60%</a></li>
                         <li><a href="#" target="_blank">Free sheeping of order more than 100$</a></li>
-                        <li id="first-clone"><a href="#" target="_blank">Best price</a></li>
+                        <!-- <li id="first-clone"><a href="#" target="_blank">Best price</a></li> -->
                     </ul>
                 </div>
                 <nav>
@@ -31,13 +31,22 @@
                         <li><a href="#catalogue" class="best-sellers">Best Sellers</a></li>
                         <li class="logo-li"><a href="#" class="logo">PlantStory</a></li>
                         <li><a href="#contacts">Contacts</a></li>
-                        <li class="card">Card(<span class="count">0</span>)</li>
+                        <li class="items-card"><i class="fas fa-shopping-basket"></i> (<span class="count">0</span>)</li>
                     </ul>
                     <div class="menu"> 
                         <div class="line"></div>
                     </div>
                     <div class="shopping-card">
-                        <p>No items</p>
+                        <div class="title">
+                            <h2>Your shopping card</h2><span class="close"><i class="fas fa-times"></i></span>
+                        </div>
+                        <p class="empty">Your shopping card is currently empty.</p>
+                        <div class="container">
+                            <div class="buttons">
+                                <button class="order">Order</button>
+                                <button class="back"><a href="#filters">Go back to shopping</a></button>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -47,8 +56,10 @@
                     <div class="content">
                         <h1>Your favorite houseplant shop</h1>
                         <p>Create your atmosphere</p>
-                        <button class="shop"><a href="#catalogue">Shop now</a></button>
-                        <button class="chat"><a href="#">Questions? Let's chat</a> <i class="far fa-comment"></i></button>
+                        <div class="content-btns">
+                            <button class="shop"><a href="#catalogue">Shop now</a></button>
+                            <button class="chat"><a href="#">Questions? Let's chat</a> <i class="far fa-comment"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,11 +73,11 @@
                 <h3>Light <i class="fas fa-chevron-down"></i></h3>
                 <div class="drop-down">
                     <div class="input-block">
-                        <input type="radio" name="light">
+                        <input type="radio" name="light" id="low">
                         <label for="">Low Light</label>
                     </div>
                     <div class="input-block">
-                        <input type="radio" name="light">
+                        <input type="radio" name="light" id="bright">
                         <label for="">Bright Light</label>
                     </div>
                 </div>
@@ -75,11 +86,11 @@
                 <h3>Benefit <i class="fas fa-chevron-down"></i></h3>
                 <div class="drop-down">
                     <div class="input-block">
-                        <input type="checkbox">
+                        <input type="checkbox" id="pet">
                         <label for="">Pet Friendly</label>
                     </div>
                     <div class="input-block">
-                        <input type="checkbox">
+                        <input type="checkbox" id="air">
                         <label for="">Air Purifying</label>
                     </div>
                 </div>
@@ -88,19 +99,19 @@
                 <h3>Size <i class="fas fa-chevron-down"></i></h3>
                 <div class="drop-down">
                     <div class="input-block">
-                        <input type="radio" name="size">
+                        <input type="radio" name="size" id="mini">
                         <label for="">Mini</label>
                     </div>
                     <div class="input-block">
-                        <input type="radio" name="size">
+                        <input type="radio" name="size" id="small">
                         <label for="">Small</label>
                     </div>
                     <div class="input-block">
-                        <input type="radio" name="size">
+                        <input type="radio" name="size" id="medium">
                         <label for="">Medium</label>
                     </div>
                     <div class="input-block">
-                        <input type="radio" name="size">
+                        <input type="radio" name="size" id="large">
                         <label for="">Large</label>
                     </div>
                 </div>
@@ -114,219 +125,10 @@
 
     <section id="catalogue">
         <div class="container">
-            <div class="items">
-                <div class="page">
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_anthurium-pink_variant_small_balboa_black_720x.jpg?v=1608339126" alt="Pink Anthurium">
-                        <div class="plant-info">
-                            <h3>Pink Anthurium</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">57$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card best">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_birds-nest-fern_variant_medium_grant_forest_1440x.jpg?v=1609388331" alt="Bird’s Nest Fern">
-                        <div class="plant-info">
-                            <h3>Bird’s Nest Fern</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">43$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_haworthia-zebra_variant_mini_hyde_cream_8e2f9097-4dc8-467c-a552-f2ac1c6f9cfc_720x.jpg?v=1601670467" alt="Haworthia">
-                        <div class="plant-info">
-                            <h3>Haworthia</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">30$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_parlor-palm_variant_small_balboa_mint_720x.jpg?v=1608994469" alt="Parlor Palm">
-                        <div class="plant-info">
-                            <h3>Parlor Palm</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">43$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>   
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_petite-white-orchid_featured_720x.jpg?v=1606160377" alt="Petite White Orchid">
-                        <div class="plant-info">
-                            <h3>Petite White Orchid</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">100$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_snake-plant-laurentii_variant_small_prospect_mint_720x.jpg?v=1608585896" alt="Snake Plant">
-                        <div class="plant-info">
-                            <h3>Snake Plant Laurentii</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">36$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>                 
-                </div>
-                <div class="page">
-                    <div class="card best">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_echeveria-preta_variant_small_balboa_black_720x.jpg?v=1608312631" alt="Echeveria Preta">
-                        <div class="plant-info">
-                            <h3>Echeveria Preta</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">46$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_white-orchid_variant_small_prospect_cream_720x.jpg?v=1603636440" alt="White Orchid">
-                        <div class="plant-info">
-                            <h3>White Orchid</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">110$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card best">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_purple-orchid_variant_small_prospect_cream_720x.jpg?v=1600369110" alt="Purple Orchid">
-                        <div class="plant-info">
-                            <h3>Purple Orchid</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">84$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_ponytail-palm_variant_acadia_white_720x.jpg?v=1606660274" alt="Ponytail Palm">
-                        <div class="plant-info">
-                            <h3>Ponytail Palm</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">70$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_monstera_variant_medium_grant_navy_720x.jpg?v=1609388101" alt="Monstera Deliciosa">
-                        <div class="plant-info">
-                            <h3>Monstera Deliciosa</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">65$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_aglaonema-red_variant_acadia_white_720x.jpg?v=1606660130" alt="Aglaonema">
-                        <div class="plant-info">
-                            <h3>Aglaonema</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">70$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="page">
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_norfolk-island-pine_variant_small_balboa_cream_720x.jpg?v=1607709584" alt="Norfolk Island Pine">
-                        <div class="plant-info">
-                            <h3>Norfolk Island Pine</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">60$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_pothos-jade_variant_medium_grant_mint_720x.jpg?v=1609388236" alt="Pothos">
-                        <div class="plant-info">
-                            <h3>Pothos</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">52$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card best">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_monstera_variant_large_pallas_almond_720x.jpg?v=1606159693" alt="Large Monstera">
-                        <div class="plant-info">
-                            <h3>Large Monstera</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">150$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card best">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_large-zz-plant_variant_large_grant_pale-grey_720x.jpg?v=1600813826" alt="Large ZZ Plant">
-                        <div class="plant-info">
-                            <h3>Large ZZ Plant</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">200$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_large-fiddle-leaf-fig-bush_variant_large_pallas_white_720x.jpg?v=1606159741" alt="Large Fiddle Leaf Fig Bush">
-                        <div class="plant-info">
-                            <h3>Large Fiddle Leaf Fig Bush</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">200$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                    <div class="card best">
-                        <img src="https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_bird-of-paradise_featured_720x.jpg?v=1606159713" alt="Large Bird of Paradise">
-                        <div class="plant-info">
-                            <h3>Large Bird of Paradise</h3>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <p class="brand">PotShop</p>
-                            <p class="price">167$</p>
-                            <p>available</p>
-                            <button class="buy">Add to Card</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="items"></div>
             <div class="controls">
                 <i class="fas fa-chevron-left"></i>
-                <div class="page-count">
-                    <p class="active">1</p>
-                    <p>2</p>
-                    <p>3</p>
-                </div>
+                <div class="page-count"></div>
                 <i class="fas fa-chevron-right"></i>
             </div>
         </div>
@@ -367,12 +169,11 @@
 
 
 <!-- to do:
-1. fix slider
+1. fix pages(prev, next)
 2. write breadcrumps
-4. filter for best-sellers
+4. fix filters(first page, remove empty rows, buy button doesn't work)
 5. smooth transition for chat btn
 6. collecting data for form
-7. write sorting by filters
 8. search
 9. card section(hover & click)
 10. fix advertisments -->
