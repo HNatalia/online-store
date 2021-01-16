@@ -492,34 +492,24 @@
   }
 
   const initAdvsSlider = () => {
-    let li = document.querySelectorAll('.advs-list li');
+    const container = document.querySelector('.advs');
     const ul = document.querySelector('.advs-list');
-    let height = 100 / li.length;
+    const itemHeight = container.getBoundingClientRect().height;
 
-    // ul.style.transform = `translateY(-${100 / li.length}px)`;
-
-    const time = () => { 
-      setInterval(() => {
-
-        ul.style.transform = `translateY(-${height}px)`;
-        height = height + 25;
-        
-      }, 1000);
-    }
-
-    time();
-
+    setInterval(() => {
+      ul.style.transition = '.7s';
+      ul.style.transform = `translateY(-${itemHeight}px)`;
+    }, 1000);
+    
     ul.addEventListener('transitionend', () => {
-      if (height >= 100) {
-        ul.appendChild(ul.firstElementChild);
+      const first = ul.querySelector('li');
+      
+      first.remove();
+      ul.appendChild(first);
 
-        ul.style.transition = 'none';
-        ul.style.transform = 'translateY(0)';
-        height = 0;
-      }
-
+      ul.style.transition = 'none';
+      ul.style.transform = 'translateY(0)';
     });
-
   }
 
   const initChatBtn = () => {
@@ -678,7 +668,7 @@
 
     renderProducts(inventory, 6);
     initShoppingCard();
-    // initAdvsSlider();
+    initAdvsSlider();
     initChatBtn();
     initMenuBtn();
     initFiltersBtns();
