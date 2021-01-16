@@ -305,11 +305,78 @@
 
     const items = document.querySelector('#catalogue .items');
     const pagesContainer = document.querySelector('.page-count');
+    
 
     items.innerHTML = pagesHtml;
     pagesContainer.innerHTML = pages;
 
   };
+
+  const initShoppingCard = () => {
+    const cardModal = document.querySelector('.shopping-card');
+    const cardBtn = document.querySelector('.items-card');
+    const countItems = cardBtn.querySelector('.count');
+    const buyBtns = document.querySelectorAll('.buy');
+    const emptyMsg = cardModal.querySelector('.empty');
+    const orderBtn = cardModal.querySelector('.order');
+    const backBtn = cardModal.querySelector('.back');
+    const closeBtn = cardModal.querySelector('.close');
+    let count = 0;
+
+    cardBtn.addEventListener('click', () => {
+      toggle(cardModal, 'open');
+    });
+
+    backBtn.addEventListener('click', () => {
+      toggle(cardModal, 'open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      toggle(cardModal, 'open');
+    });
+
+    buyBtns.forEach(el => {
+      el.addEventListener('click', () => {
+        countItems.textContent = ++count;
+
+        if (count > 0) {
+          emptyMsg.textContent = '';
+          orderBtn.style.display = 'inline-block';
+        } 
+
+      });
+    });
+
+  }
+
+  const initBreadcrumps = filter => {
+    const breadcrumps = document.querySelector('.breadcrumps');
+    // const allProducts = breadcrumps.querySelector('.all');
+
+    // allProducts.addEventListener('click', () => {
+    //   console.log('click')
+    //   renderProducts(inventory);
+    // });
+
+    const filterName = `
+      <p class='filter-name'>${filter}</p>
+    `;
+
+    breadcrumps.innerHTML += filterName;
+
+    const deleteFilter = breadcrumps.querySelectorAll('.filter-name');
+
+    deleteFilter.forEach(el => {
+      el.addEventListener('click', () => {
+        el.style.display = 'none';
+      });
+    });
+
+    if (deleteFilter.length === 1) {
+      renderProducts(inventory);
+    }
+
+  }
 
   const removeAllProducts = () => {
     const cards = document.querySelectorAll('.card');
@@ -326,11 +393,11 @@
 
       removeAllProducts();
 
-      const bestSell = inventory.filter(product => product.hasOwnProperty('bestSell'))
-      console.log(bestSell.length)
-      if (bestSell) {
-        renderProducts(bestSell)
-      }
+      const bestSell = inventory.filter(product => product.hasOwnProperty('bestSell'));
+
+      renderProducts(bestSell);
+      initBreadcrumps('Best Sellers');
+
     });
   }
 
@@ -342,11 +409,15 @@
     const brightLight = inventory.filter(product => product.light === 'bright');
 
     low.addEventListener('click', () => {
-      renderProducts(lowLight)
+      renderProducts(lowLight);
+      initPages();
+      initBreadcrumps('Low Light');
     });
 
     bright.addEventListener('click', () => {
-      renderProducts(brightLight)
+      renderProducts(brightLight);
+      initPages();
+      initBreadcrumps('Bright Light');
     });
   }
 
@@ -358,11 +429,13 @@
     const airFiltered = inventory.filter(product => product.airPurify);
 
     petFriendly.addEventListener('click', () => {
-      renderProducts(petFiltered)
+      renderProducts(petFiltered);
+      initBreadcrumps('Pet Friendly');
     });
 
     airPurify.addEventListener('click', () => {
-      renderProducts(airFiltered)
+      renderProducts(airFiltered);
+      initBreadcrumps('Air Purifying');
     });
   }
 
@@ -378,43 +451,35 @@
     const largeSize = inventory.filter(product => product.size === 'large');
     
     mini.addEventListener('click', () => {
-      renderProducts(miniSize)
+      renderProducts(miniSize);
+      initBreadcrumps('Mini');
     });
 
     small.addEventListener('click', () => {
-      renderProducts(smallSize)
+      renderProducts(smallSize);
+      initBreadcrumps('Small');
     });
 
     medium.addEventListener('click', () => {
-      renderProducts(mediumSize)
+      renderProducts(mediumSize);
+      initBreadcrumps('Medium');
     });
 
     large.addEventListener('click', () => {
-      renderProducts(largeSize)
+      renderProducts(largeSize);
+      initBreadcrumps('Large');
     });
   }
 
   const initSearchBar = () => {
     const searchBar = document.getElementById('search-bar');
-    const itemsArr = document.querySelectorAll('.card');
     
     searchBar.addEventListener('keyup', e => {
-      const searchString = e.target.value;
-      removeAllProducts();
+      const searchString = e.target.value.toLowerCase();
 
-      const allProducts = inventory.filter(product => product.hasOwnProperty('name'));
-      const productsLower = inventory.map(el => el.name.toLowerCase());
+      const filteredProducts = inventory.filter(product => product.name.toLowerCase().includes(searchString));
 
-      for (let i = 0; i < productsLower.length; i++) {
-        let products = productsLower[i];
-        console.log(products.charAt(0))
-        if (searchString.charAt(0) === products.charAt(0)) {
-          const filtered = inventory.filter(el => el === products)
-          console.log(filtered)
-        }
-      }
-
-
+      renderProducts(filteredProducts);
     });
   }
 
@@ -580,47 +645,39 @@
     });
   }
 
-  const initShoppingCard = () => {
-    const cardModal = document.querySelector('.shopping-card');
-    const cardBtn = document.querySelector('.items-card');
-    const countItems = cardBtn.querySelector('.count');
-    const buyBtns = document.querySelectorAll('.buy');
-    const emptyMsg = cardModal.querySelector('.empty');
-    const orderBtn = cardModal.querySelector('.order');
-    const backBtn = cardModal.querySelector('.back');
-    const closeBtn = cardModal.querySelector('.close');
-    let count = 0;
+  const getDataFromForm = () => {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const submitBtn = document.getElementById('submit');
+    
+    const getData = () => {
 
-    cardBtn.addEventListener('click', () => {
-      toggle(cardModal, 'open');
+      const nameArr = nameInput.value.split(' ');
+      const emailArr = emailInput.value.split(' ');
+
+      const dataArr = [...nameArr, ...emailArr];
+      console.log(dataArr)
+
+      const data = dataArr.reduce((acc, input) => ({
+        ...acc,
+        [input.id]: input.value
+      }), {});
+
+      return data;
+    }
+
+    submitBtn.addEventListener('click', e => {
+      e.preventDefault();
+
+
     });
-
-    backBtn.addEventListener('click', () => {
-      toggle(cardModal, 'open');
-    });
-
-    closeBtn.addEventListener('click', () => {
-      toggle(cardModal, 'open');
-    });
-
-    buyBtns.forEach(el => {
-      el.addEventListener('click', () => {
-        countItems.textContent = ++count;
-
-        if (count > 0) {
-          emptyMsg.textContent = '';
-          orderBtn.style.display = 'inline-block';
-        } 
-
-      });
-    });
-
   }
 
 
   document.addEventListener('DOMContentLoaded', () => {
 
-    renderProducts(inventory, 6)
+    renderProducts(inventory, 6);
+    initShoppingCard();
     // initAdvsSlider();
     initChatBtn();
     initMenuBtn();
@@ -628,7 +685,7 @@
     initFilters();
     // hideMenu();
     initPages();
-    initShoppingCard();
+    getDataFromForm();
 
   });
 })();

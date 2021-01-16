@@ -261,33 +261,33 @@ nav ul li:hover, nav ul li a:hover {
   display: block;
 }
 
-#filters .container {
+#filters .filter-container {
   width: 60%;
   margin: 0 auto;
-  padding: 30px 0;
+  padding: 30px 0 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   position: relative;
 }
 
-#filters .container h2 {
+#filters .filter-container h2 {
   color: #ce5858;
   font-size: 22px;
 }
 
-#filters .container i {
+#filters .filter-container i {
   color: #383837;
   font-size: 16px;
   transition: .5s;
   transform: rotate(0deg);
 }
 
-#filters .container i.around {
+#filters .filter-container i.around {
   transform: rotate(-180deg);
 }
 
-#filters .container h3 {
+#filters .filter-container h3 {
   color: #383837;
   font-size: 28px;
   cursor: pointer;
@@ -323,6 +323,38 @@ nav ul li:hover, nav ul li a:hover {
   border-color: #383837;
 }
 
+#filters .breadcrumps {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#filters .breadcrumps p {
+  color: #ce5858;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#filters .breadcrumps .filter-name {
+  color: #383837;
+  font-size: 18px;
+  padding: 2px 25px 2px 15px;
+  border: 1px solid #383837;
+  border-radius: 20px;
+  position: relative;
+  margin: 0 5px;
+}
+
+#filters .breadcrumps .filter-name:before {
+  position: absolute;
+  content: '\292B';
+  font-size: 10px;
+  right: 6px;
+  top: 6px;
+}
+
 #catalogue .container {
   width: 80%;
   margin: 0 auto;
@@ -337,12 +369,13 @@ nav ul li:hover, nav ul li a:hover {
 #catalogue .page {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 1fr;
   grid-gap: 20px;
 }
 
 #catalogue .card {
   max-width: 328px;
+  max-height: 430px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -483,6 +516,10 @@ nav ul li:hover, nav ul li a:hover {
 }
 
 #contacts input::placeholder {
+  color: #ce5858;
+}
+
+#contacts input:focus {
   color: #ce5858;
 }
 
