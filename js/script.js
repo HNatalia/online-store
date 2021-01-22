@@ -266,6 +266,8 @@
     },
   ];
 
+  let filters = [];
+
   const productTemplate = product => `
     <div class="card" data-id="${product.id}">
       <img src="${product.hero}" alt="${product.name}">
@@ -312,16 +314,12 @@
 
   };
 
+  const cardModal = document.querySelector('.shopping-card');
+
   const initShoppingCard = () => {
-    const cardModal = document.querySelector('.shopping-card');
     const cardBtn = document.querySelector('.items-card');
-    const countItems = cardBtn.querySelector('.count');
-    const buyBtns = document.querySelectorAll('.buy');
-    const emptyMsg = cardModal.querySelector('.empty');
-    const orderBtn = cardModal.querySelector('.order');
     const backBtn = cardModal.querySelector('.back');
     const closeBtn = cardModal.querySelector('.close');
-    let count = 0;
 
     cardBtn.addEventListener('click', () => {
       toggle(cardModal, 'open');
@@ -334,69 +332,115 @@
     closeBtn.addEventListener('click', () => {
       toggle(cardModal, 'open');
     });
+  }
 
-    buyBtns.forEach(el => {
+  const renderCardProduct = product => `
+    <div class="items">
+        <img src="${product.hero}" alt="${product.name}" class="items-img">
+        <h5>${product.name}</h5>
+        <p class="price">${product.price}$</p>
+        <input type="number" value="${1}">
+    </div>
+  `;
+
+  const initBuyButton = () => {
+    const buyBtns = document.querySelectorAll('.buy');
+    const countItems = document.querySelector('.count');
+    const emptyMsg = cardModal.querySelector('.empty');
+    const orderBtn = cardModal.querySelector('.order');
+
+    let count = 0;
+
+    buyBtns.forEach((el, index) => {
       el.addEventListener('click', () => {
         countItems.textContent = ++count;
 
         if (count > 0) {
           emptyMsg.textContent = '';
           orderBtn.style.display = 'inline-block';
+          cardModal.style.height = '80vh';
+
+          const container = document.querySelector('.shopping-card .container');
+          let total = container.querySelector('.total');
+          
+          const productToBuy = renderCardProduct(inventory[index]);
+          
+          container.innerHTML += productToBuy;
+
+          console.log(inventory[index].price)
+          total.innerHTML += `Total price: ${inventory[index].price}`;
         } 
 
       });
     });
-
   }
 
-  const initBreadcrumps = filter => {
+  const renderBreadcrumbs = () => {
     const breadcrumps = document.querySelector('.breadcrumps');
-    // const allProducts = breadcrumps.querySelector('.all');
 
-    // allProducts.addEventListener('click', () => {
-    //   console.log('click')
-    //   renderProducts(inventory);
-    // });
-
-    const filterName = `
-      <p class='filter-name'>${filter}</p>
+    const renderFilter = name => `
+      <p class="filter-name" data-name=${name}>${name}</p>
     `;
 
-    breadcrumps.innerHTML += filterName;
+    const all = filters.map(f => renderFilter(f.name)).join('');
+
+    breadcrumps.innerHTML = '<p class="all">All Products /</p>' + all;
 
     const deleteFilter = breadcrumps.querySelectorAll('.filter-name');
 
     deleteFilter.forEach(el => {
       el.addEventListener('click', () => {
         el.style.display = 'none';
+
+        filters.splice(el, 1);
+
+        renderFilteredInventory(filters)
       });
     });
-
-    if (deleteFilter.length === 1) {
-      renderProducts(inventory);
-    }
-
   }
 
-  const removeAllProducts = () => {
-    const cards = document.querySelectorAll('.card');
+  const removeAllFilters = () => {
+    const allProducts = document.querySelector('.all');
 
-    cards.forEach(el => {
-      el.style.display = 'none';
+    allProducts.addEventListener('click', () => {
+      const breadcrumps = document.querySelector('.breadcrumps');
+      const deleteFilter = breadcrumps.querySelectorAll('.filter-name');
+
+      deleteFilter.forEach(el => {
+        el.style.display = 'none';
+
+        filters = [];
+
+        renderFilteredInventory(filters)
+      });
+
     });
   }
+
+  const renderFilteredInventory = () => {
+    console.log('filters', filters.map(f => f.name));
+
+    const filtered = inventory.filter(product => {
+      return filters.every(f => f.predicate(product));
+    });
+    
+    renderProducts(filtered);
+    renderBreadcrumbs();
+    removeAllFilters();
+    initBuyButton();
+  };
 
   const initBestFilter = () => {
     const bestSellBtn = document.querySelector('.best-sellers');
 
     bestSellBtn.addEventListener('click', () => {
 
-      removeAllProducts();
+      filters.push({
+        name: 'Best Sellers',
+        predicate: product => product.hasOwnProperty('bestSell')
+      });
 
-      const bestSell = inventory.filter(product => product.hasOwnProperty('bestSell'));
-
-      renderProducts(bestSell);
-      initBreadcrumps('Best Sellers');
+      renderFilteredInventory();
 
     });
   }
@@ -405,19 +449,29 @@
     const low = document.getElementById('low');
     const bright = document.getElementById('bright');
 
-    const lowLight = inventory.filter(product => product.light === 'low');
-    const brightLight = inventory.filter(product => product.light === 'bright');
+    const removeFiltersLowBright = () =>
+      filters.filter(f => f.name !== 'Low Light' && f.name !== 'Bright Light');
 
     low.addEventListener('click', () => {
-      renderProducts(lowLight);
-      initPages();
-      initBreadcrumps('Low Light');
+      filters = removeFiltersLowBright();
+      
+      filters.push({
+        name: 'Low Light',
+        predicate: product => product.light === 'low'
+      });
+      
+      renderFilteredInventory();
     });
 
     bright.addEventListener('click', () => {
-      renderProducts(brightLight);
-      initPages();
-      initBreadcrumps('Bright Light');
+      filters = removeFiltersLowBright();
+      
+      filters.push({
+        name: 'Bright Light',
+        predicate: product => product.light === 'bright'
+      });      
+
+      renderFilteredInventory();
     });
   }
 
@@ -425,17 +479,35 @@
     const petFriendly = document.getElementById('pet');
     const airPurify = document.getElementById('air');
 
-    const petFiltered = inventory.filter(product => product.petFriendly);
-    const airFiltered = inventory.filter(product => product.airPurify);
-
     petFriendly.addEventListener('click', () => {
-      renderProducts(petFiltered);
-      initBreadcrumps('Pet Friendly');
+      if(petFriendly.checked) {
+        
+        filters.push({
+          name: 'Pet Friendly',
+          predicate: product => product.petFriendly
+        });
+
+      } else {
+        filters = filters.filter(f => f.name !== 'Pet Friendly');
+      }
+
+      renderFilteredInventory();
+
     });
 
     airPurify.addEventListener('click', () => {
-      renderProducts(airFiltered);
-      initBreadcrumps('Air Purifying');
+      if(airPurify.checked) {
+        
+        filters.push({
+          name: 'Air Purifying',
+          predicate: product => product.airPurify
+        });
+
+      } else {
+        filters = filters.filter(f => f.name !== 'Air Purifying');
+      }
+
+      renderFilteredInventory();
     });
   }
 
@@ -445,29 +517,50 @@
     const medium = document.getElementById('medium');
     const large = document.getElementById('large');
 
-    const miniSize = inventory.filter(product => product.size === 'mini');
-    const smallSize = inventory.filter(product => product.size === 'small');
-    const mediumSize = inventory.filter(product => product.size === 'medium');
-    const largeSize = inventory.filter(product => product.size === 'large');
+    const removeSizes = () => filters.filter(f => f.name !== 'Mini Size' && f.name !== 'Small Size' && f.name !== 'Medium Size' && f.name !== 'Large Size');
     
     mini.addEventListener('click', () => {
-      renderProducts(miniSize);
-      initBreadcrumps('Mini');
+      filters = removeSizes();
+      
+      filters.push({
+        name: 'Mini Size',
+        predicate: product => product.size === 'mini'
+      });
+
+      renderFilteredInventory();
     });
 
     small.addEventListener('click', () => {
-      renderProducts(smallSize);
-      initBreadcrumps('Small');
+      filters = removeSizes();
+      
+      filters.push({
+        name: 'Small Size',
+        predicate: product => product.size === 'small'
+      });
+
+      renderFilteredInventory();
     });
 
     medium.addEventListener('click', () => {
-      renderProducts(mediumSize);
-      initBreadcrumps('Medium');
+      filters = removeSizes();
+      
+      filters.push({
+        name: 'Medium Size',
+        predicate: product => product.size === 'medium'
+      });
+
+      renderFilteredInventory();
     });
 
     large.addEventListener('click', () => {
-      renderProducts(largeSize);
-      initBreadcrumps('Large');
+      filters = removeSizes();
+      
+      filters.push({
+        name: 'Large Size',
+        predicate: product => product.size === 'large'
+      });
+
+      renderFilteredInventory();
     });
   }
 
@@ -486,8 +579,8 @@
   const initFilters = () => {
     initBestFilter();
     initLightFilter();
-    initSizeFilter();
     initBenefitFilter();
+    initSizeFilter();
     initSearchBar();
   }
 
@@ -499,7 +592,7 @@
     setInterval(() => {
       ul.style.transition = '.7s';
       ul.style.transform = `translateY(-${itemHeight}px)`;
-    }, 1000);
+    }, 3000);
     
     ul.addEventListener('transitionend', () => {
       const first = ul.querySelector('li');
@@ -667,8 +760,9 @@
   document.addEventListener('DOMContentLoaded', () => {
 
     renderProducts(inventory, 6);
+    initBuyButton();
     initShoppingCard();
-    initAdvsSlider();
+    // initAdvsSlider();
     initChatBtn();
     initMenuBtn();
     initFiltersBtns();

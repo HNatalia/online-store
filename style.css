@@ -108,6 +108,47 @@ nav ul li:hover, nav ul li a:hover {
   margin-top: 20px;
 }
 
+.shopping-card .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.shopping-card .items {
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.shopping-card .items-img {
+  max-width: 100px;
+  max-height: 100px;
+  width: 100%;
+  height: 100%;
+}
+
+.shopping-card h5 {
+  font-size: 18px;
+}
+
+.shopping-card input {
+  max-width: 60px;
+  width: 100%;
+  outline: none;
+}
+
+.shopping-card .price {
+  font-size: 20px;
+}
+
+.shopping-card .total {
+  align-self: flex-end;
+  font-size: 25px;
+  margin-top: 40px;
+  color: #383837;
+}
+
 .shopping-card .buttons {
   margin-top: 50px;
 }
@@ -121,6 +162,7 @@ nav ul li:hover, nav ul li a:hover {
   border: none;
   outline: none;
   margin-right: 20px;
+  margin-bottom: 70px;
   display: none;
 }
 
@@ -142,6 +184,7 @@ nav ul li:hover, nav ul li a:hover {
 
 .shopping-card.open {
   display: block;
+  overflow: scroll;
 }
 
 .jumbotron {
